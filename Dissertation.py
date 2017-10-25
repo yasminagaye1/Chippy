@@ -105,11 +105,7 @@ def main():
     plt.title("Reward chart for Runner.move")
     plt.xlabel("Steps")
     plt.ylabel("Rewards")
-
-
-
-
-
+    
     # 1. Process command line arguments
     options, args = parseCommandLine()
 
