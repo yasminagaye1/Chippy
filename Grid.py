@@ -11,7 +11,8 @@
 #                                                        imports
 # ==============================================================
 import unittest
-
+import showreward
+import showmove
 import Square
 from Constants import *
 
@@ -126,9 +127,11 @@ class Grid(object):
         jump = self.__squares[new_xy].jump()
         if jump:
             final_xy = jump
+            showmove.showmove(showreward.showLocation(*final_xy), showreward.showReward(reward))
         else:
             final_xy = new_xy
-
+            showmove.showmove(showreward.showLocation(*final_xy), showreward.showReward(reward))
+            
         #6
         self.updateGraph(reward)
 
