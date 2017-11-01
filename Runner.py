@@ -33,7 +33,7 @@ class Runner(QLearner.QLearner):
         self.initial_epsilon = epsilon
 
         #5
-        plt.title("Reward chart from Runner.move")
+        '''plt.title("Reward chart from Runner.move")
         plt.xlabel("Steps")
         plt.ylabel("Rewards")
         self.__resultsForGraph=[]
@@ -43,7 +43,7 @@ class Runner(QLearner.QLearner):
         self.__axes = plt.gca()
         self.__axes.set_xlim(0, 10000000)
         self.__axes.set_ylim(0, 100000000)
-        self.__line, = self.__axes.plot(self.__stepsForGraph, self.__resultsForGraph, 'r-')
+        self.__line, = self.__axes.plot(self.__stepsForGraph, self.__resultsForGraph, 'r-')'''
 
 
        
@@ -78,7 +78,7 @@ class Runner(QLearner.QLearner):
             self.reset()
         
         #
-        self.updateGraph(result[RESULT_ACT_REWARD])
+        #self.updateGraph(result[RESULT_ACT_REWARD])
 
         # 4. Return reward and new location
         return result
@@ -89,7 +89,7 @@ class Runner(QLearner.QLearner):
         return SUGGEST_NONE
 
     #
-    def updateGraph(self, reward):
+    '''def updateGraph(self, reward):
         self.__rewardsForGraph+=reward
         if self.__totalSteps%20000==0:
             self.__stepsForGraph.append(self.__totalSteps)
@@ -98,7 +98,7 @@ class Runner(QLearner.QLearner):
             self.__line.set_ydata(self.__resultsForGraph)
             plt.pause(1e-17)
             time.sleep(0.1)         
-        self.__totalSteps+=1
+        self.__totalSteps+=1'''
 
     def reset(self):
         QLearner.QLearner.reset(self)

@@ -37,7 +37,6 @@ class Experiments(object):
                        switch=SWITCH_TURN,
                        stop=STOP_TURN,
                        repeats=REPEATS):
-
         self.walker  = walker
         self.grid    = grid
         self.switch  = switch
@@ -46,6 +45,7 @@ class Experiments(object):
         if walker:
             walker.set_grid(grid)
 
+        
     def run(self, csv_f=None, csv_b=None, csv_e=None,
                   experiments=None, verbose=False):
 
@@ -55,18 +55,6 @@ class Experiments(object):
 
         # 2. Start with no results
         results = []
-
-        '''#
-        resultsForGraph=[]
-        stepsForGraph=[]
-        totalSteps=0
-        rewardsForGraph=0
-        plt.show()
-        axes = plt.gca()
-        axes.set_xlim(0, 10000000)
-        axes.set_ylim(0, 100000000)
-        line, = axes.plot(stepsForGraph, resultsForGraph, 'r-')'''
-
 
         # 3. Loop for all possible experiments
         if experiments == None:
@@ -115,22 +103,6 @@ class Experiments(object):
             if verbose:
                 print rewards
             results.append(rewards)
-
-            #
-            '''#update graph flow here
-            rewardsForGraph+=rewards
-            if totalSteps%20000==0:
-                stepsForGraph.append(totalSteps)
-                resultsForGraph.append(rewardsForGraph)
-                line.set_xdata(stepsForGraph)
-                line.set_ydata(resultsForGraph)
-                plt.draw()
-                plt.pause(1e-17)
-                time.sleep(0.1)
-                rewardsForGraph=0         
-            totalSteps+=1'''
-
-        showRewardsOnGraph(results)
         # 9. Return the total reward
         return results
 

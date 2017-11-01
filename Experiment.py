@@ -16,7 +16,8 @@ import unittest
 from Constants import *
 import Grid
 import QLearner
-#from showmove.py import showmove
+import matplotlib.pyplot as plt
+import time
 
 # ==============================================================
 #                                                      constants
@@ -41,6 +42,19 @@ class Experiment(object):
         self.stop    = stop
         if walker:
             walker.set_grid(grid)
+
+        #
+        plt.title("Reward chart from Experiment.run")
+        plt.xlabel("Steps")
+        plt.ylabel("Rewards")
+        self.__resultsForGraph=[]
+        self.__stepsForGraph=[]
+        self.__totalSteps=0
+        self.__rewardsForGraph=0
+        self.__axes = plt.gca()
+        self.__axes.set_xlim(0, 10000000)
+        self.__axes.set_ylim(0, 100000000)
+        self.__line, = self.__axes.plot(self.__stepsForGraph, self.__resultsForGraph, 'r-')
 
     def run(self, csv_f=None, csv_b=None, csv_e=None):
 
@@ -77,8 +91,20 @@ class Experiment(object):
                 #print 'Switching rewards at step', step
                 self.grid.set_rewards(r=self.rewards[CHANGED])
 
+        #self.updateGraph(rewards)
         # 8. Return the total rewards
         return rewards
+
+    def updateGraph(self, reward):
+        self.__rewardsForGraph+=reward
+        if self.__totalSteps%20000==0:
+            self.__stepsForGraph.append(self.__totalSteps)
+            self.__resultsForGraph.append(self.__rewardsForGraph)
+            self.__line.set_xdata(self.__stepsForGraph)
+            self.__line.set_ydata(self.__resultsForGraph)
+            plt.pause(1e-17)
+            time.sleep(0.1)         
+        self.__totalSteps+=1
 
     def reset(self):
 
