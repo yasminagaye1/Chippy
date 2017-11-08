@@ -129,8 +129,7 @@ def main():
         # 7. Run the experiments
         result = exps.run(csv_f, csv_b, csv_e,
                           experiments=options.exp_number,
-                          verbose=options.verbose)
-
+                          verbose=options.verbose, number=number)
         # 8. Output quick counts
         if options.verbose:
             print (number, result)

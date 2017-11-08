@@ -2,10 +2,10 @@
 #                       R u n n e r . p y
 # ==============================================================
 
-# Author:  Dean Earl Wright III
-# Created: 28 August 2011
-# Purpose: Reimplementation of the Q-learning perturbation
-#          testbed for multiple metacognition levels.
+#           testbed for multiple metacognition levels.
+#           Author:  Dean Earl Wright III
+#           Created: 28 August 2011
+#           Purpose: Reimplementation of the Q-learning perturbation
 
 # ==============================================================
 #                                                        imports
@@ -43,11 +43,8 @@ class Runner(QLearner.QLearner):
         self.__axes = plt.gca()
         self.__axes.set_xlim(0, 10000000)
         self.__axes.set_ylim(0, 100000000)
-        self.__line, = self.__axes.plot(self.__stepsForGraph, self.__resultsForGraph, 'r-')'''
-
-
-       
-    
+        self.__line, = self.__axes.plot(self.__stepsForGraph, self.__resultsForGraph, 'r-')
+        '''
     def move(self, direction=None):
         "Move in the direction with the best expected value or explore"
 

@@ -45,9 +45,20 @@ class Experiments(object):
         if walker:
             walker.set_grid(grid)
 
+        self.__totalsteps=0
+        self.__rewardsForGraph=0
+        plt.title("Reward chart from Experiments.run")
+        plt.xlabel("Steps")
+        plt.ylabel("Rewards")
+        self.__resultsForGraph=[]
+        self.__stepsForGraph=[]
+        self.__axes = plt.gca()
+        self.__axes.set_xlim(0, 10000000)
+        self.__axes.set_ylim(0, 100000000)
+        self.__line, = self.__axes.plot(self.__stepsForGraph, self.__resultsForGraph, 'r-')
         
     def run(self, csv_f=None, csv_b=None, csv_e=None,
-                  experiments=None, verbose=False):
+                  experiments=None, verbose=False, number=None):
 
         # 1. Can't run if no one or no where
         if not self.walker or not self.grid or not self.walker.grid():
@@ -103,6 +114,19 @@ class Experiments(object):
             if verbose:
                 print rewards
             results.append(rewards)
+
+            self.__rewardsForGraph+=rewards
+            if self.__totalsteps%20000==0:
+                self.__stepsForGraph.append((440000*number)+self.__totalsteps)
+                self.__resultsForGraph.append(self.__rewardsForGraph)
+                self.__line.set_xdata(self.__stepsForGraph)
+                self.__line.set_ydata(self.__resultsForGraph)
+                plt.pause(1e-17)
+                time.sleep(0.1)     
+
+            print("Here is reward", ((440000*number)+self.__totalsteps), rewards)
+            self.__totalsteps+=20000
+
         # 9. Return the total reward
         return results
 

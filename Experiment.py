@@ -31,7 +31,7 @@ class Experiment(object):
 
     def __init__(self, walker=None,
                        grid=None,
-                       rewards=((10,-10),(-10,10)),
+                       rewards=REWARDS,
                        switch=SWITCH_TURN,
                        stop=STOP_TURN):
 
@@ -44,7 +44,7 @@ class Experiment(object):
             walker.set_grid(grid)
 
         #
-        plt.title("Reward chart from Experiment.run")
+        '''plt.title("Reward chart from Experiment.run")
         plt.xlabel("Steps")
         plt.ylabel("Rewards")
         self.__resultsForGraph=[]
@@ -55,7 +55,7 @@ class Experiment(object):
         self.__axes.set_xlim(0, 10000000)
         self.__axes.set_ylim(0, 100000000)
         self.__line, = self.__axes.plot(self.__stepsForGraph, self.__resultsForGraph, 'r-')
-
+        '''
     def run(self, csv_f=None, csv_b=None, csv_e=None):
 
         # 1. Can't run if no one or no where
@@ -95,6 +95,7 @@ class Experiment(object):
         # 8. Return the total rewards
         return rewards
 
+    '''
     def updateGraph(self, reward):
         self.__rewardsForGraph+=reward
         if self.__totalSteps%20000==0:
@@ -104,7 +105,7 @@ class Experiment(object):
             self.__line.set_ydata(self.__resultsForGraph)
             plt.pause(1e-17)
             time.sleep(0.1)         
-        self.__totalSteps+=1
+        self.__totalSteps+=1'''
 
     def reset(self):
 

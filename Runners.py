@@ -137,8 +137,6 @@ class Level3HC(Runner.Runner):
                 if self.suggested_learning > LEARNING_LIMIT:
                     suggestion = SUGGEST_RESET
                     self.suggested_learning = 0
-        
-        
         # 6. Return the suggestion
         if suggestion != 0:
             print results, '-->', suggestion

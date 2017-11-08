@@ -42,7 +42,8 @@ class Walker(object):
         self.__axes = plt.gca()
         self.__axes.set_xlim(0, 10000000)
         self.__axes.set_ylim(0, 100000000)
-        self.__line, = self.__axes.plot(self.__stepsForGraph, self.__resultsForGraph, 'r-')'''
+        self.__line, = self.__axes.plot(self.__stepsForGraph, self.__resultsForGraph, 'r-')
+        '''
 
     def set_grid(self, grid=None, start=None):
         self.__grid = grid
@@ -104,8 +105,9 @@ class Walker(object):
 
         return result
     
-
-    '''def updateGraph(self, reward):
+    
+    '''
+    def updateGraph(self, reward):
         self.__rewardsForGraph+=reward
         if self.__totalSteps%20000==0:
             self.__stepsForGraph.append(self.__totalSteps)
@@ -114,7 +116,8 @@ class Walker(object):
             self.__line.set_ydata(self.__resultsForGraph)
             plt.pause(1e-17)
             time.sleep(0.1)         
-        self.__totalSteps+=1'''
+        self.__totalSteps+=1
+    '''
 
     def reset(self):
         if self.__grid:
