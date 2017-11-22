@@ -17,6 +17,9 @@ import Grid
 import Walker
 from Constants import *
 
+import time
+import matplotlib.pyplot as plt
+
 # ==============================================================
 #                                                       QLearner
 # ==============================================================
@@ -31,6 +34,20 @@ class QLearner(Walker.Walker):
         self.__gamma   = gamma
         self.__epsilon = epsilon
 
+        #
+        plt.title("Reward chart from Qlearner.move")
+        plt.xlabel("Steps")
+        plt.ylabel("Rewards")
+        self.__resultsForGraph=[]
+        self.__stepsForGraph=[]
+        self.__totalSteps=0
+        self.__rewardsForGraph=0
+        self.__axes = plt.gca()
+        self.__axes.set_xlim(0, 1000000)
+        self.__axes.set_ylim(0, 100000000)
+        self.__line, = self.__axes.plot(self.__stepsForGraph, self.__resultsForGraph, 'r-')
+
+
     def __str__(self):
         return "QLearner (a=%f,g=%f,e=%f,c=%d,s=%f %s)" % \
                (self.__alpha,self.__gamma,self.__epsilon, self.count(),
@@ -43,6 +60,18 @@ class QLearner(Walker.Walker):
     def set_epsilon(self, epsilon): self.__epsilon = epsilon
     def set_alpha(self, alpha): self.__alpha = alpha
     def set_gamma(self, gamma): self.__gamma = gamma
+
+    #
+    def updateGraph(self, reward):
+        self.__rewardsForGraph+=reward
+        if self.__totalSteps%20000==0:
+            self.__stepsForGraph.append(self.__totalSteps)
+            self.__resultsForGraph.append(self.__rewardsForGraph)
+            self.__line.set_xdata(self.__stepsForGraph)
+            self.__line.set_ydata(self.__resultsForGraph)
+            plt.pause(1e-17)
+            time.sleep(0.1)         
+        self.__totalSteps+=1
 
     def move(self, direction=None):
         "Move in the direction with the best expected value or explore"
@@ -75,6 +104,8 @@ class QLearner(Walker.Walker):
         result.append(move_type)
         result.extend(policy)
 
+        #
+        self.updateGraph(result[RESULT_ACT_REWARD])
         # 7. Return movement results
         return result
 
