@@ -109,7 +109,8 @@ class Experiments(object):
                     sys.stdout.flush()
                 rewards += experiment.run(csv_f=csv_f,
                                           csv_b=prefix,
-                                          csv_e=csv_e)
+                                          csv_e=csv_e,
+                                          numRep=num)
 
             # 8. Save the results
             if verbose:

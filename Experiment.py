@@ -40,6 +40,7 @@ class Experiment(object):
         self.rewards = rewards
         self.switch  = switch
         self.stop    = stop
+        self.numTimes=0
         if walker:
             walker.set_grid(grid)
 
@@ -57,7 +58,7 @@ class Experiment(object):
         self.__axes.set_ylim(0, 100000000)
         self.__line, = self.__axes.plot(self.__stepsForGraph, self.__resultsForGraph, 'r-')
         '''
-    def run(self, csv_f=None, csv_b=None, csv_e=None):
+    def run(self, csv_f=None, csv_b=None, csv_e=None, numRep=None):
 
         # 1. Can't run if no one or no where
         if not self.walker or not self.grid or not self.walker.grid():
@@ -68,7 +69,6 @@ class Experiment(object):
 
         # 3. Start with no rewards
         rewards = 0
-        
 
         # 4. Walk a mile in chippy's shoes
         for step in xrange(self.stop):
@@ -90,9 +90,10 @@ class Experiment(object):
             if step == self.switch:
                 #print 'Switching rewards at step', step
                 self.grid.set_rewards(r=self.rewards[CHANGED])
-
+            
             #self.updateGraph(result[RESULT_ACT_REWARD])
             # 8. Return the total rewards
+        print("steps in:", numRep*STOP_TURN)
         return rewards
 
     '''

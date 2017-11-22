@@ -44,9 +44,8 @@ class QLearner(Walker.Walker):
         self.__rewardsForGraph=0
         self.__axes = plt.gca()
         self.__axes.set_xlim(0, 1000000)
-        self.__axes.set_ylim(0, 100000000)
+        self.__axes.set_ylim(0, 10000000)
         self.__line, = self.__axes.plot(self.__stepsForGraph, self.__resultsForGraph, 'r-')
-
 
     def __str__(self):
         return "QLearner (a=%f,g=%f,e=%f,c=%d,s=%f %s)" % \
