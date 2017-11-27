@@ -93,7 +93,7 @@ class Experiment(object):
             
             #self.updateGraph(result[RESULT_ACT_REWARD])
             # 8. Return the total rewards
-        print("steps in:", numRep*STOP_TURN)
+        #print("steps in:", numRep*STOP_TURN)
         return rewards
 
     '''

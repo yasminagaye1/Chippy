@@ -35,7 +35,7 @@ class QLearner(Walker.Walker):
         self.__epsilon = epsilon
 
         #
-        plt.title("Reward chart from Qlearner.move")
+        '''plt.title("Reward chart from Qlearner.move")
         plt.xlabel("Steps")
         plt.ylabel("Rewards")
         self.__resultsForGraph=[]
@@ -46,7 +46,7 @@ class QLearner(Walker.Walker):
         self.__axes.set_xlim(0, 1000000)
         self.__axes.set_ylim(0, 10000000)
         self.__line, = self.__axes.plot(self.__stepsForGraph, self.__resultsForGraph, 'r-')
-
+        '''
     def __str__(self):
         return "QLearner (a=%f,g=%f,e=%f,c=%d,s=%f %s)" % \
                (self.__alpha,self.__gamma,self.__epsilon, self.count(),
@@ -61,7 +61,7 @@ class QLearner(Walker.Walker):
     def set_gamma(self, gamma): self.__gamma = gamma
 
     #
-    def updateGraph(self, reward):
+    '''def updateGraph(self, reward):
         self.__rewardsForGraph+=reward
         if self.__totalSteps%20000==0:
             self.__stepsForGraph.append(self.__totalSteps)
@@ -70,7 +70,7 @@ class QLearner(Walker.Walker):
             self.__line.set_ydata(self.__resultsForGraph)
             plt.pause(1e-17)
             time.sleep(0.1)         
-        self.__totalSteps+=1
+        self.__totalSteps+=1'''
 
     def move(self, direction=None):
         "Move in the direction with the best expected value or explore"
@@ -104,7 +104,7 @@ class QLearner(Walker.Walker):
         result.extend(policy)
 
         #
-        self.updateGraph(result[RESULT_ACT_REWARD])
+        #self.updateGraph(result[RESULT_ACT_REWARD])
         # 7. Return movement results
         return result
 
