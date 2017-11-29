@@ -40,11 +40,13 @@ class Experiment(object):
         self.rewards = rewards
         self.switch  = switch
         self.stop    = stop
+        self.numTimes=0
         if walker:
             walker.set_grid(grid)
 
+        '''
         #
-        '''plt.title("Reward chart from Experiment.run")
+        plt.title("Reward chart from Experiment.run")
         plt.xlabel("Steps")
         plt.ylabel("Rewards")
         self.__resultsForGraph=[]
@@ -52,11 +54,11 @@ class Experiment(object):
         self.__totalSteps=0
         self.__rewardsForGraph=0
         self.__axes = plt.gca()
-        self.__axes.set_xlim(0, 10000000)
+        self.__axes.set_xlim(0, 1000000)
         self.__axes.set_ylim(0, 100000000)
         self.__line, = self.__axes.plot(self.__stepsForGraph, self.__resultsForGraph, 'r-')
         '''
-    def run(self, csv_f=None, csv_b=None, csv_e=None):
+    def run(self, csv_f=None, csv_b=None, csv_e=None, numRep=None):
 
         # 1. Can't run if no one or no where
         if not self.walker or not self.grid or not self.walker.grid():
@@ -67,14 +69,12 @@ class Experiment(object):
 
         # 3. Start with no rewards
         rewards = 0
-        
 
         # 4. Walk a mile in chippy's shoes
         for step in xrange(self.stop):
 
             # 5. Execute a single move
             result = self.walker.move()
-            #showmove(result[1])
             
             # 6. Record the move in the results
             rewards += result[RESULT_ACT_REWARD]
@@ -90,9 +90,10 @@ class Experiment(object):
             if step == self.switch:
                 #print 'Switching rewards at step', step
                 self.grid.set_rewards(r=self.rewards[CHANGED])
-
-        #self.updateGraph(rewards)
-        # 8. Return the total rewards
+            
+            #self.updateGraph(result[RESULT_ACT_REWARD])
+            # 8. Return the total rewards
+        #print("steps in:", numRep*STOP_TURN)
         return rewards
 
     '''
@@ -105,7 +106,8 @@ class Experiment(object):
             self.__line.set_ydata(self.__resultsForGraph)
             plt.pause(1e-17)
             time.sleep(0.1)         
-        self.__totalSteps+=1'''
+        self.__totalSteps+=1
+    '''
 
     def reset(self):
 

@@ -44,7 +44,7 @@ class Experiments(object):
         self.repeats = repeats
         if walker:
             walker.set_grid(grid)
-
+        '''
         self.__totalsteps=0
         self.__rewardsForGraph=0
         plt.title("Reward chart from Experiments.run")
@@ -56,7 +56,8 @@ class Experiments(object):
         self.__axes.set_xlim(0, 10000000)
         self.__axes.set_ylim(0, 100000000)
         self.__line, = self.__axes.plot(self.__stepsForGraph, self.__resultsForGraph, 'r-')
-        
+        '''
+
     def run(self, csv_f=None, csv_b=None, csv_e=None,
                   experiments=None, verbose=False, number=None):
 
@@ -108,15 +109,17 @@ class Experiments(object):
                     sys.stdout.flush()
                 rewards += experiment.run(csv_f=csv_f,
                                           csv_b=prefix,
-                                          csv_e=csv_e)
+                                          csv_e=csv_e,
+                                          numRep=num)
 
             # 8. Save the results
             if verbose:
                 print rewards
             results.append(rewards)
-
+            
+            '''
             self.__rewardsForGraph+=rewards
-            if self.__totalsteps%20000==0:
+            if self.__totalsteps%200==0:
                 self.__stepsForGraph.append((440000*number)+self.__totalsteps)
                 self.__resultsForGraph.append(self.__rewardsForGraph)
                 self.__line.set_xdata(self.__stepsForGraph)
@@ -126,6 +129,7 @@ class Experiments(object):
 
             print("Here is reward", ((440000*number)+self.__totalsteps), rewards)
             self.__totalsteps+=20000
+            '''
 
         # 9. Return the total reward
         return results

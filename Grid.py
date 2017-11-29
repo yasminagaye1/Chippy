@@ -57,7 +57,7 @@ class Grid(object):
 
 
         #5
-        '''plt.title("Reward chart from Grid.move")
+        plt.title("Reward chart from Grid.move")
         plt.xlabel("Steps")
         plt.ylabel("Rewards")
         self.__resultsForGraph=[]
@@ -65,9 +65,9 @@ class Grid(object):
         self.__totalSteps=0
         self.__rewardsForGraph=0
         self.__axes = plt.gca()
-        self.__axes.set_xlim(0, 10000000)
-        self.__axes.set_ylim(0, 100000000)
-        self.__line, = self.__axes.plot(self.__stepsForGraph, self.__resultsForGraph, 'r-')'''
+        self.__axes.set_xlim(0, 50000000)
+        self.__axes.set_ylim(0, 1000000000)
+        self.__line, = self.__axes.plot(self.__stepsForGraph, self.__resultsForGraph, 'r-')
 
     def __str__(self):
         return "Grid (n=%d,r1=%d,r2=%d)" % \
@@ -130,12 +130,12 @@ class Grid(object):
             final_xy = new_xy
 
         #6
-        #self.updateGraph(reward)
+        self.updateGraph(reward)
 
         # 5. Return reward and new location
         return at,direction,new_xy,expected,reward,final_xy
 
-    '''def updateGraph(self, reward):
+    def updateGraph(self, reward):
         self.__rewardsForGraph+=reward
         if self.__totalSteps%20000==0:
             self.__stepsForGraph.append(self.__totalSteps)
@@ -144,7 +144,7 @@ class Grid(object):
             self.__line.set_ydata(self.__resultsForGraph)
             plt.pause(1e-17)
             time.sleep(0.1)         
-        self.__totalSteps+=1'''
+        self.__totalSteps+=1
     
     def reset(self):
         for s in self.__squares.itervalues():
