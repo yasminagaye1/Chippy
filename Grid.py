@@ -65,8 +65,8 @@ class Grid(object):
         self.__totalSteps=0
         self.__rewardsForGraph=0
         self.__axes = plt.gca()
-        self.__axes.set_xlim(0, 50000000)
-        self.__axes.set_ylim(0, 1000000000)
+        self.__axes.set_xlim(0, 2000000)
+        self.__axes.set_ylim(0, 2000000)
         self.__line, = self.__axes.plot(self.__stepsForGraph, self.__resultsForGraph, 'r-')
 
     def __str__(self):
@@ -130,6 +130,7 @@ class Grid(object):
             final_xy = new_xy
 
         #6
+        #print("reward from grid:", reward);
         self.updateGraph(reward)
 
         # 5. Return reward and new location
@@ -142,9 +143,12 @@ class Grid(object):
             self.__resultsForGraph.append(self.__rewardsForGraph)
             self.__line.set_xdata(self.__stepsForGraph)
             self.__line.set_ydata(self.__resultsForGraph)
+            self.__rewardsForGraph=0
             plt.pause(1e-17)
-            time.sleep(0.1)         
+            time.sleep(0.1)    
         self.__totalSteps+=1
+        print("steps-rewards", self.__totalSteps, self.__rewardsForGraph)
+        #print("total rewards is: ", )
     
     def reset(self):
         for s in self.__squares.itervalues():
