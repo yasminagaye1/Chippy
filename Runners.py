@@ -70,18 +70,18 @@ class Level2HC(Runner.Runner):
     def __str__(self): return 'Level2'
 
     def monitor(self,results):
-
+        
         # 1. If unexpected reward, evaluate
         if results[RESULT_EXP_REWARD] != None and \
            results[RESULT_EXP_REWARD] != results[RESULT_ACT_REWARD]:
 
             # 2. If was positive and now negative, reset
             if results[RESULT_EXP_REWARD] > 0 and \
-                results[RESULT_EXP_REWARD] < 0:
+                results[RESULT_ACT_REWARD] < 0: #jd
                 return SUGGEST_RESET
 
             # 3. If reward is less that before, learn
-            if results[RESULT_EXP_REWARD] > results[RESULT_EXP_REWARD]:
+            if results[RESULT_EXP_REWARD] > results[RESULT_ACT_REWARD]:
                 self.grid().set_expected(results[RESULT_REWARD_LOC],
                                          results[RESULT_ACT_REWARD])
                 return SUGGEST_LEARN
@@ -123,11 +123,11 @@ class Level3HC(Runner.Runner):
 
             # 3. If was positive and now negative, reset
             if results[RESULT_EXP_REWARD] > 0 and \
-                results[RESULT_EXP_REWARD] < 0:
+                results[RESULT_ACT_REWARD] < 0:
                 suggestion = SUGGEST_RESET
 
             # 4. If reward is less that before, learn
-            if results[RESULT_EXP_REWARD] > results[RESULT_EXP_REWARD]:
+            if results[RESULT_EXP_REWARD] > results[RESULT_ACT_REWARD]:
                 self.grid().set_expected(results[RESULT_REWARD_LOC],
                                          results[RESULT_ACT_REWARD])
                 suggestion = SUGGEST_LEARN
