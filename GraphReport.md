@@ -1,9 +1,9 @@
 
-GRAPHS FOR EACH LEVEL OF CHIPPY
+</b>GRAPHS FOR EACH LEVEL OF CHIPPY</b>
 
 The goal of this project so far was to gain an insight of how Chippy 
 works internally. To do so, we modified the Constants.py file to reduce the number 
-of experiments and number of rewards from 22 to 1 and from 7 to 2.
+of experiments and number of rewards from 22 to 1 and from 7 to 2 respectively.
 
 The experiment (EXPERIMENTS=[(0,1)]) will switch between two reward tuples ([(-100, 10), (100,  -50)])
 over a total of 20,000 steps in 20 repeats. Therefore the total numnber of steps 
@@ -52,3 +52,7 @@ CLASS 0-4 since 5 and 6 are mere repititions of class 1.
 ![alt text](https://github.com/tabularrasa/Chippy/blob/JesuyeChippy/allPix/graphlevel4.PNG)
 
 
+We can see that Chippy tends to behave more closely to intuition as we
+go from level0 to level 4. At level 4, chippy continues to garner rewards
+until expected result and actual results do not match up then it has to 
+either learn or reset.
