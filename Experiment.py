@@ -12,11 +12,12 @@
 # ==============================================================
 
 import unittest
-
+from time import sleep
 from Constants import *
 import Grid
 import QLearner
-#from showmove.py import showmove
+import showmove
+import showreward
 
 # ==============================================================
 #                                                      constants
@@ -53,15 +54,11 @@ class Experiment(object):
 
         # 3. Start with no rewards
         rewards = 0
-        
-
         # 4. Walk a mile in chippy's shoes
-        for step in xrange(self.stop):
+        for step in range(self.stop):
 
             # 5. Execute a single move
             result = self.walker.move()
-            #showmove(result[1])
-            
             # 6. Record the move in the results
             rewards += result[RESULT_ACT_REWARD]
             if csv_f:

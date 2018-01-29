@@ -14,20 +14,12 @@ import unittest
 import showreward
 import showmove
 import Square
+from time import sleep
 from Constants import *
 
 # ==============================================================
 #                                                           Grid
 # ==============================================================
-
-#
-import time
-import matplotlib.pyplot as plt
-
-
-
-
-
 class Grid(object):
     "Multiple squares arranged in an n by n matrix with two rewards"
 
@@ -55,20 +47,6 @@ class Grid(object):
         # 4. Set the transporters
         self.__squares[(0,0)].set_jump((self.__n_1,self.__n_1))
         self.__squares[(self.__n_1,self.__n_1)].set_jump((0,0))
-
-
-        #5
-        plt.title("Reward chart from Grid.move")
-        plt.xlabel("Steps")
-        plt.ylabel("Rewards")
-        self.__resultsForGraph=[]
-        self.__stepsForGraph=[]
-        self.__totalSteps=0
-        self.__rewardsForGraph=0
-        self.__axes = plt.gca()
-        self.__axes.set_xlim(0, 10000000)
-        self.__axes.set_ylim(0, 100000000)
-        self.__line, = self.__axes.plot(self.__stepsForGraph, self.__resultsForGraph, 'r-')
 
     def __str__(self):
         return "Grid (n=%d,r1=%d,r2=%d)" % \
@@ -122,7 +100,6 @@ class Grid(object):
         reward   = self.__squares[new_xy].reward()
         expected = self.__squares[new_xy].expected()
 
-
         # 4. Implement jumps at reward squares
         jump = self.__squares[new_xy].jump()
         if jump:
@@ -131,24 +108,9 @@ class Grid(object):
         else:
             final_xy = new_xy
             showmove.showmove(showreward.showLocation(*final_xy), showreward.showReward(reward))
-            
-        #6
-        self.updateGraph(reward)
-
         # 5. Return reward and new location
         return at,direction,new_xy,expected,reward,final_xy
 
-    def updateGraph(self, reward):
-        self.__rewardsForGraph+=reward
-        if self.__totalSteps%20000==0:
-            self.__stepsForGraph.append(self.__totalSteps)
-            self.__resultsForGraph.append(self.__rewardsForGraph)
-            self.__line.set_xdata(self.__stepsForGraph)
-            self.__line.set_ydata(self.__resultsForGraph)
-            plt.pause(1e-17)
-            time.sleep(0.1)         
-        self.__totalSteps+=1
-    
     def reset(self):
         for s in self.__squares.itervalues():
             s.reset()

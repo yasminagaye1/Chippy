@@ -12,7 +12,8 @@
 # ==============================================================
 import random
 import unittest
-
+import showreward
+import showmove
 import Grid
 import Walker
 from Constants import *
@@ -55,6 +56,7 @@ class QLearner(Walker.Walker):
         if direction != None:
             move_type = MOVE_TYPE_FORCED
         else:
+
             # 3. Determine on or off policy move
             if self.__epsilon > random.random():
                 direction = random.choice(DIRECTIONS)
@@ -65,7 +67,7 @@ class QLearner(Walker.Walker):
 
         # 4. Move in specified direction
         result = list(Walker.Walker.move(self, direction))
-
+        
         # 5. Adjust the action expected rewards
         self.qreward(direction, previous,
                      result[RESULT_ACT_REWARD],
@@ -76,6 +78,10 @@ class QLearner(Walker.Walker):
         result.extend(policy)
 
         # 7. Return movement results
+        showmove.showThoughts(showreward.showThoughts(result[RESULT_POLICY_N],
+                                                      result[RESULT_POLICY_S],
+                                                      result[RESULT_POLICY_W],
+                                                      result[RESULT_POLICY_E]))
         return result
 
     def qreward(self, a, s, r, sp):

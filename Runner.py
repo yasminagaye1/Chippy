@@ -14,8 +14,8 @@ import unittest
 
 import QLearner
 from Constants import *
-import matplotlib.pyplot as plt
-import time
+
+
 # ==============================================================
 #                                                         Runner
 # ==============================================================
@@ -32,22 +32,6 @@ class Runner(QLearner.QLearner):
         self.adj_epsilon = None
         self.initial_epsilon = epsilon
 
-        #5
-        plt.title("Reward chart from Runner.move")
-        plt.xlabel("Steps")
-        plt.ylabel("Rewards")
-        self.__resultsForGraph=[]
-        self.__stepsForGraph=[]
-        self.__totalSteps=0
-        self.__rewardsForGraph=0
-        self.__axes = plt.gca()
-        self.__axes.set_xlim(0, 10000000)
-        self.__axes.set_ylim(0, 100000000)
-        self.__line, = self.__axes.plot(self.__stepsForGraph, self.__resultsForGraph, 'r-')
-
-
-       
-    
     def move(self, direction=None):
         "Move in the direction with the best expected value or explore"
 
@@ -70,15 +54,12 @@ class Runner(QLearner.QLearner):
         if suggestion == SUGGEST_NONE:
             pass
         elif suggestion == SUGGEST_LEARN:
-            print "Runner.move: implemeting learning"
+            print ("Runner.move: implemeting learning")
             self.increase_epsilon(LEARN_EPSILON)
             self.adj_epsilon = LEARN_ADJUST
         elif suggestion == SUGGEST_RESET:
-            print "Runner.move: implemeting reset"
+            print ("Runner.move: implemeting reset")
             self.reset()
-        
-        #
-        self.updateGraph(result[RESULT_ACT_REWARD])
 
         # 4. Return reward and new location
         return result
@@ -87,18 +68,6 @@ class Runner(QLearner.QLearner):
 
         # 1. Not a very good metacognition
         return SUGGEST_NONE
-
-    #
-    def updateGraph(self, reward):
-        self.__rewardsForGraph+=reward
-        if self.__totalSteps%20000==0:
-            self.__stepsForGraph.append(self.__totalSteps)
-            self.__resultsForGraph.append(self.__rewardsForGraph)
-            self.__line.set_xdata(self.__stepsForGraph)
-            self.__line.set_ydata(self.__resultsForGraph)
-            plt.pause(1e-17)
-            time.sleep(0.1)         
-        self.__totalSteps+=1
 
     def reset(self):
         QLearner.QLearner.reset(self)

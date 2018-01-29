@@ -8,11 +8,21 @@ def showReward(reward):
     elif ( reward > 0 and reward < 10 ):
         return "HIGH"
     elif ( reward >= 10 ):
-        return "VERY HIGH"
-    
+        return "VERY HIGH"   
 def showLocation( x,y ):
     return "%d %d" % (x, y)
-
-
+def showThoughts( n, s, e, w):
+    if ( n - s - w - e == 0):
+        return "GUESS"
+    elif ( n > 0 ):
+        return "UP"
+    elif ( s > 0):
+        return "DOWN"
+    elif ( e > 0):
+        return "RIGHT"
+    else:
+        return "LEFT"
+    
+    
         
     

@@ -13,13 +13,13 @@
 import sys
 import time
 import unittest
+import showmove
 from optparse import OptionParser
 
 from Constants import *
 import Experiments
 import Runners
 import Grid
-import matplotlib.pyplot as plt
 
 # ==============================================================
 #                                                      constants
@@ -102,7 +102,7 @@ def open_csv(csv_name):
 #                                                           main
 # ==============================================================
 def main():
-    
+
     # 1. Process command line arguments
     options, args = parseCommandLine()
 
@@ -116,6 +116,7 @@ def main():
 
     # 4. Open csv file for results
     csv_f = open_csv(options.csv_name)
+
     # 5. Loop for all of the runners
     for number in options.level:
 
@@ -131,19 +132,13 @@ def main():
         result = exps.run(csv_f, csv_b, csv_e,
                           experiments=options.exp_number,
                           verbose=options.verbose)
-
+        showmove.clear()
         # 8. Output quick counts
         if options.verbose:
             print (number, result)
-    
 
-    
     # 9. Close the csv file
     csv_f.close()
-
-# ==============================================================
-#   getRewardData: create a graph of steps vs rewards
-# ==============================================================
 
 # ==============================================================
 #                                          module initialization
