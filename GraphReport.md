@@ -1,7 +1,7 @@
 
 </b>GRAPHS FOR EACH LEVEL OF CHIPPY</b>
 
-The goal of this project so far was to gain an insight of how Chippy 
+The goal of this project so far was to gain an insight on how Chippy 
 works internally. To do so, we modified the Constants.py file to reduce the number 
 of experiments and number of rewards from 22 to 1 and from 7 to 2 respectively.
 
@@ -56,3 +56,31 @@ We can see that Chippy tends to behave more closely to intuition as we
 go from level0 to level 4. At level 4, chippy continues to garner rewards
 until expected result and actual results do not match up then it has to 
 either learn or reset.
+
+
+
+******
+NOTES
+******
+
+*Rewards location are always at points (0,0) and (7,7) 
+    in the 8X8 square matrix
+*Each square in the matrix has an expected and actual reward
+*Each experiment switches between two rewards
+*A switch between two reward values is the change
+    in seasonality we are looking for
+*If youve seen a switch between two reward (or a season)
+    change then check the qtable to see if youve
+    seen that pattern before else add it to the qtable
+*If that season change already exists in the qtable then use 
+    the same trajectory as before that was learned using the 
+    reinforcement learner to get to the rewards
+*So anytime you learn a movement through a new pattern (season)
+    save your path somewhere in the qtable
+*this table will be a dictionary structure with the 
+    reward(value or location??) as the key and the path as the value
+*If chippy knows the path to get to a location, it can just go 
+    straight without beating around the bush to find 'best direction'
+*This code does not have backtracking or recursion so how 
+    do retrace our steps when we make a bad move? find best move
+*Where does kasai fit into this?
