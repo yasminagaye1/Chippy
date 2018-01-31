@@ -31,20 +31,6 @@ class Walker(object):
         self.__loc     = None
         self.set_grid(grid,start)
 
-        #5
-        '''plt.title("Reward chart from Walker.move")
-        plt.xlabel("Steps")
-        plt.ylabel("Rewards")
-        self.__resultsForGraph=[]
-        self.__stepsForGraph=[]
-        self.__totalSteps=0
-        self.__rewardsForGraph=0
-        self.__axes = plt.gca()
-        self.__axes.set_xlim(0, 10000000)
-        self.__axes.set_ylim(0, 100000000)
-        self.__line, = self.__axes.plot(self.__stepsForGraph, self.__resultsForGraph, 'r-')
-        '''
-
     def set_grid(self, grid=None, start=None):
         self.__grid = grid
         if grid == None:
@@ -104,20 +90,6 @@ class Walker(object):
         #self.updateGraph(result[RESULT_ACT_REWARD])
 
         return result
-    
-    
-    '''
-    def updateGraph(self, reward):
-        self.__rewardsForGraph+=reward
-        if self.__totalSteps%20000==0:
-            self.__stepsForGraph.append(self.__totalSteps)
-            self.__resultsForGraph.append(self.__rewardsForGraph)
-            self.__line.set_xdata(self.__stepsForGraph)
-            self.__line.set_ydata(self.__resultsForGraph)
-            plt.pause(1e-17)
-            time.sleep(0.1)         
-        self.__totalSteps+=1
-    '''
 
     def reset(self):
         if self.__grid:

@@ -56,7 +56,7 @@ class Grid(object):
         self.__squares[(self.__n_1,self.__n_1)].set_jump((0,0))
 
 
-        #5
+        #5 set values for graph
         plt.title("Reward chart from Grid.move")
         plt.xlabel("Steps")
         plt.ylabel("Rewards")
@@ -147,7 +147,7 @@ class Grid(object):
             plt.pause(1e-17)
             time.sleep(0.1)    
         self.__totalSteps+=1
-        print("steps-rewards", self.__totalSteps, self.__rewardsForGraph)
+        #print("steps-rewards", self.__totalSteps, self.__rewardsForGraph)
         #print("total rewards is: ", )
     
     def reset(self):

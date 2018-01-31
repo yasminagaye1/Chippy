@@ -44,19 +44,6 @@ class Experiments(object):
         self.repeats = repeats
         if walker:
             walker.set_grid(grid)
-        '''
-        self.__totalsteps=0
-        self.__rewardsForGraph=0
-        plt.title("Reward chart from Experiments.run")
-        plt.xlabel("Steps")
-        plt.ylabel("Rewards")
-        self.__resultsForGraph=[]
-        self.__stepsForGraph=[]
-        self.__axes = plt.gca()
-        self.__axes.set_xlim(0, 10000000)
-        self.__axes.set_ylim(0, 100000000)
-        self.__line, = self.__axes.plot(self.__stepsForGraph, self.__resultsForGraph, 'r-')
-        '''
 
     def run(self, csv_f=None, csv_b=None, csv_e=None,
                   experiments=None, verbose=False, number=None):
@@ -76,7 +63,7 @@ class Experiments(object):
         for exp in exps:
 
             # 4. Determine the rewards for the experiment
-            initial_rewards = REWARDS[EXPERIMENTS[exp][INITIAL]]
+            initial_rewards = REWARDS[EXPERIMENTS[exp][INITIAL]];#print("initial rewards", initial_rewards)
             changed_rewards = REWARDS[EXPERIMENTS[exp][CHANGED]]
             rewards=(initial_rewards, changed_rewards)
 
