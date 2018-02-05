@@ -84,3 +84,14 @@ NOTES
 *This code does not have backtracking or recursion so how 
     do retrace our steps when we make a bad move? find best move
 *Where does kasai fit into this?
+
+
+NOTES
+*****
+*Runners inherits runner which inherits qlearner, which inherits walker
+*Still dont know when and how monitor is called but thats btw
+*The learner should have mastered its grid and rewards just b4 we switch
+    so save the grid and its qvalues just b4 the end of  10000 moves
+*And b4 we start any moves in any experiment, check if the rewards in 
+    the particular setting has been seen before. If the pattern has been
+    seen b4 then program chippy to follow the qtable in its movement
