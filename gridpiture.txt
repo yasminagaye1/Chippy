@@ -1,0 +1,2 @@
+    \begin{picture}(8,8
+    \thicklines

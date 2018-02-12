@@ -172,7 +172,7 @@ class Grid(object):
 
         # 2. Loop for every square
         for s in self.__squares:
-
+            print("grid.py", s)
             # 3. Have the square draw itself
             s.draw(out_f, arrow, which)
 

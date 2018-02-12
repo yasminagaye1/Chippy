@@ -95,3 +95,16 @@ NOTES
 *And b4 we start any moves in any experiment, check if the rewards in 
     the particular setting has been seen before. If the pattern has been
     seen b4 then program chippy to follow the qtable in its movement
+
+
+NOTES
+*****
+*The move() in experiment.py calls the move() in runner.py,
+    which calls the move() in qlearner.py, which calls the 
+    suggest() in walker, which calls suggest in grid
+
+*monitor() in runner.py calls monitors in runners.py that 
+    monitors the results and gives a suggestion. This activity
+    is implmented using inheritance so a quick glance at pythons
+    use of inheritance could aid grasping of the concepts.
+

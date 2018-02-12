@@ -56,13 +56,13 @@ class Walker(object):
 
     def policy(self):
         if self.__grid:
+            #print("grid q is", self.__grid[self.__loc].q())
             return self.__grid[self.__loc].q()
         else:
             return None
 
     def move(self, direction=None):
         "Move to the given, best, or random direction"
-
         # 2. Pick a direction if none given
         if None == direction:
             suggest = self.suggest()

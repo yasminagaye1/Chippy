@@ -47,14 +47,12 @@ class Experiments(object):
 
     def run(self, csv_f=None, csv_b=None, csv_e=None,
                   experiments=None, verbose=False, number=None):
-
         # 1. Can't run if no one or no where
         if not self.walker or not self.grid or not self.walker.grid():
             return None
-
+        
         # 2. Start with no results
         results = []
-
         # 3. Loop for all possible experiments
         if experiments == None:
             exps = range(len(EXPERIMENTS))
@@ -63,7 +61,7 @@ class Experiments(object):
         for exp in exps:
 
             # 4. Determine the rewards for the experiment
-            initial_rewards = REWARDS[EXPERIMENTS[exp][INITIAL]];#print("initial rewards", initial_rewards)
+            initial_rewards = REWARDS[EXPERIMENTS[exp][INITIAL]];
             changed_rewards = REWARDS[EXPERIMENTS[exp][CHANGED]]
             rewards=(initial_rewards, changed_rewards)
 
@@ -81,9 +79,8 @@ class Experiments(object):
             # 6. Loop for the number of repeats
             prefix = None
             rewards = 0
+
             for num in range(self.repeats):
-
-
                 # 7. Run the experiment
                 experiment.reset()
                 if csv_f:
@@ -98,26 +95,13 @@ class Experiments(object):
                                           csv_b=prefix,
                                           csv_e=csv_e,
                                           numRep=num)
-
+            
             # 8. Save the results
             if verbose:
                 print rewards
             results.append(rewards)
             
-            '''
-            self.__rewardsForGraph+=rewards
-            if self.__totalsteps%200==0:
-                self.__stepsForGraph.append((440000*number)+self.__totalsteps)
-                self.__resultsForGraph.append(self.__rewardsForGraph)
-                self.__line.set_xdata(self.__stepsForGraph)
-                self.__line.set_ydata(self.__resultsForGraph)
-                plt.pause(1e-17)
-                time.sleep(0.1)     
-
-            print("Here is reward", ((440000*number)+self.__totalsteps), rewards)
-            self.__totalsteps+=20000
-            '''
-
+            
         # 9. Return the total reward
         return results
 

@@ -43,7 +43,6 @@ class Experiment(object):
         self.numTimes=0
         if walker:
             walker.set_grid(grid)
-
         
     def run(self, csv_f=None, csv_b=None, csv_e=None, numRep=None):
 
@@ -57,12 +56,12 @@ class Experiment(object):
         # 3. Start with no rewards
         rewards = 0
 
+        
+
         # 4. Walk a mile in chippy's shoes
         for step in xrange(self.stop):
-
             # 5. Execute a single move
             result = self.walker.move()
-            
             # 6. Record the move in the results
             rewards += result[RESULT_ACT_REWARD]
             if csv_f:

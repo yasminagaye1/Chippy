@@ -14,7 +14,7 @@ import unittest
 
 import Runner
 from Constants import *
-
+import inspect
 
 # ==============================================================
 #                                                Level 0: Bereft
@@ -107,8 +107,13 @@ class Level3HC(Runner.Runner):
     def reset(self):
         Runner.Runner.reset(self)
         self.suggested_learning = 0
+    
+    def myName(self):
+        return ("This is me Level3HC")
 
     def monitor(self,results):
+        #curframe = inspect.currentframe()
+        #print ('caller name:', inspect.getouterframes(curframe, 2)[1][4])
 
         # 1. Assume that there is nothing to do
         suggestion = SUGGEST_NONE

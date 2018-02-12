@@ -84,7 +84,7 @@ class Square(object):
 
         # 2. Loop for the other directions
         for direction in range(4):
-            if direction == pick: continue
+            if direction == pick: continue #you cant move to yourself
 
             # 3. If this direction is better, save it
             v = self.__q[direction]
@@ -95,6 +95,7 @@ class Square(object):
             # 4. If the same, keep both (or more)
             elif v == value:
                 result.append(direction)
+                #print("direction is", DIR_LETTER[direction])
 
         # 5. If there is more than one best direction, shuffle them
         if len(result) > 1:

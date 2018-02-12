@@ -56,11 +56,11 @@ class Runner(QLearner.QLearner):
         if suggestion == SUGGEST_NONE:
             pass
         elif suggestion == SUGGEST_LEARN:
-            print "Runner.move: implemeting learning"
+            print "Runner.move: implementing learning"
             self.increase_epsilon(LEARN_EPSILON)
             self.adj_epsilon = LEARN_ADJUST
         elif suggestion == SUGGEST_RESET:
-            print "Runner.move: implemeting reset"
+            print "Runner.move: implementing reset"
             self.reset()
         
         #
@@ -70,7 +70,7 @@ class Runner(QLearner.QLearner):
         return result
 
     def monitor(self, results):
-
+        print("runner.py, this is not the monitor")
         # 1. Not a very good metacognition
         return SUGGEST_NONE
 

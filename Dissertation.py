@@ -117,7 +117,6 @@ def main():
     csv_f = open_csv(options.csv_name)
     # 5. Loop for all of the runners
     for number in options.level:
-
         # 6. Set up experiments for that Runner
         runner = Runners.RunnerFactory(number)
         exps   = Experiments.Experiments(walker=runner,

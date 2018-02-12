@@ -29,6 +29,7 @@ class QLearner(Walker.Walker):
                   gamma=DEFAULT_GAMMA,
                   epsilon=DEFAULT_EPSILON):
 
+        #inheritance, use the methods from parents
         Walker.Walker.__init__(self, grid=grid, start=start)
         self.__alpha   = alpha
         self.__gamma   = gamma
@@ -54,6 +55,7 @@ class QLearner(Walker.Walker):
         previous = self.loc()
         policy   = self.policy()
 
+        #print("policy, prevloc:", policy, previous)#jd
         # 2. If forced move use it
         if direction != None:
             move_type = MOVE_TYPE_FORCED
@@ -65,7 +67,6 @@ class QLearner(Walker.Walker):
             else:
                 direction = self.suggest()[0]
                 move_type = MOVE_TYPE_POLICY
-
         # 4. Move in specified direction
         result = list(Walker.Walker.move(self, direction))
 
@@ -73,6 +74,7 @@ class QLearner(Walker.Walker):
         self.qreward(direction, previous,
                      result[RESULT_ACT_REWARD],
                      result[RESULT_FINAL_LOC])
+        #print("qreward", direction, previous, result[RESULT_ACT_REWARD], result[RESULT_FINAL_LOC])
 
         # 6. Append move type and policy to result
         result.append(move_type)
