@@ -62,36 +62,48 @@ either learn or reset.
 ******
 NOTES
 ******
-
 *Rewards location are always at points (0,0) and (7,7) 
     in the 8X8 square matrix
+
 *Each square in the matrix has an expected and actual reward
+
 *Each experiment switches between two rewards
+
 *A switch between two reward values is the change
     in seasonality we are looking for
+
 *If youve seen a switch between two reward (or a season)
     change then check the qtable to see if youve
     seen that pattern before else add it to the qtable
+
 *If that season change already exists in the qtable then use 
     the same trajectory as before that was learned using the 
     reinforcement learner to get to the rewards
+
 *So anytime you learn a movement through a new pattern (season)
     save your path somewhere in the qtable
+
 *this table will be a dictionary structure with the 
     reward(value or location??) as the key and the path as the value
+
 *If chippy knows the path to get to a location, it can just go 
     straight without beating around the bush to find 'best direction'
+
 *This code does not have backtracking or recursion so how 
     do retrace our steps when we make a bad move? find best move
+
 *Where does kasai fit into this?
 
 
 NOTES
 *****
 *Runners inherits runner which inherits qlearner, which inherits walker
+
 *Still dont know when and how monitor is called but thats btw
+
 *The learner should have mastered its grid and rewards just b4 we switch
     so save the grid and its qvalues just b4 the end of  10000 moves
+
 *And b4 we start any moves in any experiment, check if the rewards in 
     the particular setting has been seen before. If the pattern has been
     seen b4 then program chippy to follow the qtable in its movement
@@ -108,3 +120,4 @@ NOTES
     is implmented using inheritance so a quick glance at pythons
     use of inheritance could aid grasping of the concepts.
 
+*Now that we know how everything works, we can just
