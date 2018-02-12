@@ -120,4 +120,16 @@ NOTES
     is implmented using inheritance so a quick glance at pythons
     use of inheritance could aid grasping of the concepts.
 
-*Now that we know how everything works, we can just
+*Now that we know how everything works... We need to record the best
+    qtable of an experiment. So when the number of steps is close 
+    to 10000, we save all the table values as values in a dictionary 
+    structure and use the experiment rewards as keys.
+
+*Implement a new suggest called SUGGEST_MAINTAIN that checks if
+    the current experiment pattern has already been seen before.
+    If yes then load the qtable from the qtable dictionary. 
+
+*To save the particular qtable pass a variable that will notify 
+    square when it is time to save the current table. All squares 
+    have qvalues and these values should be fed into directions, 
+    and policy. 
