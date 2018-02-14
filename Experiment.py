@@ -74,10 +74,13 @@ class Experiment(object):
 
             # 7. Switch the rewards if it is time
             if step == self.switch:
+                #collect qtable here just before we switch
+                print(self.grid.viewQvalues())
                 #print 'Switching rewards at step', step
                 self.grid.set_rewards(r=self.rewards[CHANGED])
+                
             
-            #self.updateGraph(result[RESULT_ACT_REWARD])
+                
             # 8. Return the total rewards
         #print("steps in:", numRep*STOP_TURN)
         return rewards

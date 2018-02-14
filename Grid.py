@@ -47,6 +47,7 @@ class Grid(object):
             for y in range(n):
                 s = Square.Square(x=x, y=y)
                 self.__squares[(x,y)] = s
+                #print("grid.py q value", s.q())
 
         # 3. Set the rewards
         self.set_rewards(self.__r1,self.__r2)
@@ -101,6 +102,12 @@ class Grid(object):
     def __len__(self):
         return len(self.__squares)
 
+    def viewQvalues(self):
+        print("grid.py this is for one grrid here ***")
+        for x in range(self.n()):
+            for y in range(self.n()):
+                print("grid.py q value", self.__squares[(x,y)].q())
+    
     def move(self, at, direction):
         "From square 'at' move in direction 'direction'"
 
@@ -128,7 +135,6 @@ class Grid(object):
             final_xy = jump
         else:
             final_xy = new_xy
-
         #6
         #print("reward from grid:", reward);
         self.updateGraph(reward)

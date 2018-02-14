@@ -96,7 +96,7 @@ class Experiments(object):
                                           csv_e=csv_e,
                                           numRep=num)
             
-            # 8. Save the results
+             # 8. Save the results
             if verbose:
                 print rewards
             results.append(rewards)

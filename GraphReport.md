@@ -115,9 +115,9 @@ NOTES
     which calls the move() in qlearner.py, which calls the 
     suggest() in walker, which calls suggest in grid
 
-*monitor() in runner.py calls monitors in runners.py that 
+*monitor() in runner.py calls monitor() in runners.py that 
     monitors the results and gives a suggestion. This activity
-    is implmented using inheritance so a quick glance at pythons
+    is implmented using inheritance so a quick glance at python's
     use of inheritance could aid grasping of the concepts.
 
 *Now that we know how everything works... We need to record the best
@@ -133,3 +133,15 @@ NOTES
     square when it is time to save the current table. All squares 
     have qvalues and these values should be fed into directions, 
     and policy. 
+
+NOTES
+*****
+*I have figured out a way to return q values from the graph to experiments
+    or wherever I need them
+
+*Modifying runners.py by looking at kenneth's code to figure how to manipulate
+    make chippy check if it has seen a pattern before and to use 
+    particular q values.
+
+*Still thinking of how to force chippy to use a certain qvalue even 
+    after knowing that it has seen a particular experiment before

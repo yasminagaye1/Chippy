@@ -107,9 +107,6 @@ class Level3HC(Runner.Runner):
     def reset(self):
         Runner.Runner.reset(self)
         self.suggested_learning = 0
-    
-    def myName(self):
-        return ("This is me Level3HC")
 
     def monitor(self,results):
         #curframe = inspect.currentframe()
@@ -151,11 +148,53 @@ class Level3HC(Runner.Runner):
 #                                                    MCL Level 2
 # ==============================================================
 class MCL2(Runner.Runner):
+    def __init__(self):
+        # 1. Initialize our parent
+        Runner.Runner.__init__(self)
+        # 2. Times we had a smaller reward than expected
+        self.suggested_learning = 0
 
     def __str__(self): return 'MCL2'
 
+    def reset(self):
+        Runner.Runner.reset(self)
+        self.suggested_learning = 0
+        
     def monitor(self,results):
-        return SUGGEST_NONE
+        #curframe = inspect.currentframe()
+        #print ('caller name:', inspect.getouterframes(curframe, 2)[1][4])
+
+        # 1. Assume that there is nothing to do
+        suggestion = SUGGEST_NONE
+
+        # 2. If unexpected reward, evaluate
+        if results[RESULT_EXP_REWARD] != None and \
+           results[RESULT_EXP_REWARD] != results[RESULT_ACT_REWARD]:
+            print 'Runners.Level3HC.monitor: unexpected reward %s at %s expected %s' % (
+                results[RESULT_ACT_REWARD],
+                results[RESULT_REWARD_LOC],
+                results[RESULT_EXP_REWARD])
+
+            # 3. If was positive and now negative, reset
+            if results[RESULT_EXP_REWARD] > 0 and \
+                results[RESULT_ACT_REWARD] < 0:
+                suggestion = SUGGEST_RESET
+
+            # 4. If reward is less that before, learn
+            if results[RESULT_EXP_REWARD] > results[RESULT_ACT_REWARD]:
+                self.grid().set_expected(results[RESULT_REWARD_LOC],
+                                         results[RESULT_ACT_REWARD])
+                suggestion = SUGGEST_LEARN
+
+                # 5. Unless we suggested learning too often
+                self.suggested_learning += 1
+                if self.suggested_learning > LEARNING_LIMIT:
+                    suggestion = SUGGEST_RESET
+                    self.suggested_learning = 0
+        # 6. Return the suggestion
+        if suggestion != 0:
+            print results, '-->', suggestion
+        return suggestion
 
 # ==============================================================
 #                                                    MCL Level 3
