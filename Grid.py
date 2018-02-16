@@ -103,11 +103,12 @@ class Grid(object):
         return len(self.__squares)
 
     def viewQvalues(self):
-        print("grid.py this is for one grrid here ***")
+        arcQvals=[]
         for x in range(self.n()):
             for y in range(self.n()):
-                print("grid.py q value", self.__squares[(x,y)].q())
-    
+                arcQvals.append(self.__squares[(x,y)].q())
+        return arcQvals
+        
     def move(self, at, direction):
         "From square 'at' move in direction 'direction'"
 

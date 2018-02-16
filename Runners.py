@@ -153,13 +153,18 @@ class MCL2(Runner.Runner):
         Runner.Runner.__init__(self)
         # 2. Times we had a smaller reward than expected
         self.suggested_learning = 0
+        #3
+        self.__archQdic={}
 
     def __str__(self): return 'MCL2'
 
     def reset(self):
         Runner.Runner.reset(self)
         self.suggested_learning = 0
-        
+    
+    def accumulateQdic(self, keyy, vall):
+        self.__archQdic[keyy]=vall
+    
     def monitor(self,results):
         #curframe = inspect.currentframe()
         #print ('caller name:', inspect.getouterframes(curframe, 2)[1][4])
@@ -168,20 +173,28 @@ class MCL2(Runner.Runner):
         suggestion = SUGGEST_NONE
 
         # 2. If unexpected reward, evaluate
+
         if results[RESULT_EXP_REWARD] != None and \
            results[RESULT_EXP_REWARD] != results[RESULT_ACT_REWARD]:
-            print 'Runners.Level3HC.monitor: unexpected reward %s at %s expected %s' % (
+            print 'Runners.Level3HC.monitor: unexpectedxx reward %s at %s expected %s' % (
                 results[RESULT_ACT_REWARD],
                 results[RESULT_REWARD_LOC],
                 results[RESULT_EXP_REWARD])
 
+            #if results[RESULT_ACT_REWARD]<results[RESULT_EXP_REWARD]\
+             #   and reward loc and act reward is in table
+
             # 3. If was positive and now negative, reset
             if results[RESULT_EXP_REWARD] > 0 and \
                 results[RESULT_ACT_REWARD] < 0:
+                print("runners.py---", len(self.__archQdic))
                 suggestion = SUGGEST_RESET
 
             # 4. If reward is less that before, learn
             if results[RESULT_EXP_REWARD] > results[RESULT_ACT_REWARD]:
+                
+                #print("runners.py: ---", self.grid().viewQvalues())
+                
                 self.grid().set_expected(results[RESULT_REWARD_LOC],
                                          results[RESULT_ACT_REWARD])
                 suggestion = SUGGEST_LEARN

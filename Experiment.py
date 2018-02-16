@@ -44,6 +44,9 @@ class Experiment(object):
         if walker:
             walker.set_grid(grid)
         
+       
+
+        
     def run(self, csv_f=None, csv_b=None, csv_e=None, numRep=None):
 
         # 1. Can't run if no one or no where
@@ -71,11 +74,17 @@ class Experiment(object):
                 csv_f.write(self.walker.csv_format(result))
                 if csv_e:
                     csv_f.write(csv_e)
+            #use qtable at 9000th position
+            if step%9000==0 and step>0:
+                key=str(self.grid.rewards())
+                val=(self.grid.viewQvalues())
+
+                self.walker.accumulateQdic(key, val)
 
             # 7. Switch the rewards if it is time
             if step == self.switch:
                 #collect qtable here just before we switch
-                print(self.grid.viewQvalues())
+                #print(self.grid.viewQvalues())
                 #print 'Switching rewards at step', step
                 self.grid.set_rewards(r=self.rewards[CHANGED])
                 

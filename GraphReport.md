@@ -145,3 +145,13 @@ NOTES
 
 *Still thinking of how to force chippy to use a certain qvalue even 
     after knowing that it has seen a particular experiment before
+
+NOTES
+******
+*I have found a way to send rewards and qvalues (archQdic) from 
+    experiment.py to runners.py, which contains the monitor()
+*Montor() will check if the actual rewards is less than the expected
+    reward. 
+*Our class model will then check the archQdic to see if we have 
+    seen the pattern before. If so then figure out how to make 
+    chippy use the qvalues from archQdic

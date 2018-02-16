@@ -81,7 +81,6 @@ class QLearner(Walker.Walker):
         result.extend(policy)
 
         #
-        #self.updateGraph(result[RESULT_ACT_REWARD])
         # 7. Return movement results
         return result
 
