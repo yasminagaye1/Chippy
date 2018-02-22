@@ -75,10 +75,9 @@ class Experiment(object):
                 if csv_e:
                     csv_f.write(csv_e)
             #use qtable at 9000th position
-            if step%9000==0 and step>0:
+            if step%5000==0 and step>1:
                 key=str(self.grid.rewards())
                 val=(self.grid.viewQvalues())
-
                 self.walker.accumulateQdic(key, val)
 
             # 7. Switch the rewards if it is time

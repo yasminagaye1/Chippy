@@ -155,6 +155,7 @@ class MCL2(Runner.Runner):
         self.suggested_learning = 0
         #3
         self.__archQdic={}
+        self.__prevVal=""
 
     def __str__(self): return 'MCL2'
 
@@ -162,13 +163,17 @@ class MCL2(Runner.Runner):
         Runner.Runner.reset(self)
         self.suggested_learning = 0
     
+    
     def accumulateQdic(self, keyy, vall):
-        self.__archQdic[keyy]=vall
+        #give us latest best qtable for given reward
+        if ((vall != self.__prevVal) and (keyy not in self.__archQdic)):
+            self.__archQdic[keyy]=vall
+            self.__prevVal=vall
+        #print("printing arch pattern from runners.py-", len(self.__archQdic), self.__archQdic)
     
     def monitor(self,results):
         #curframe = inspect.currentframe()
         #print ('caller name:', inspect.getouterframes(curframe, 2)[1][4])
-
         # 1. Assume that there is nothing to do
         suggestion = SUGGEST_NONE
 
@@ -176,7 +181,7 @@ class MCL2(Runner.Runner):
 
         if results[RESULT_EXP_REWARD] != None and \
            results[RESULT_EXP_REWARD] != results[RESULT_ACT_REWARD]:
-            print 'Runners.Level3HC.monitor: unexpectedxx reward %s at %s expected %s' % (
+            print 'Runners.Level3HC.monitor: unexpected reward %s at %s expected %s' % (
                 results[RESULT_ACT_REWARD],
                 results[RESULT_REWARD_LOC],
                 results[RESULT_EXP_REWARD])
@@ -187,8 +192,10 @@ class MCL2(Runner.Runner):
             # 3. If was positive and now negative, reset
             if results[RESULT_EXP_REWARD] > 0 and \
                 results[RESULT_ACT_REWARD] < 0:
-                print("runners.py---", len(self.__archQdic))
+                #let's check if this environment has been seen before
                 suggestion = SUGGEST_RESET
+                #suggestion = SUGGEST_KASAI
+
 
             # 4. If reward is less that before, learn
             if results[RESULT_EXP_REWARD] > results[RESULT_ACT_REWARD]:

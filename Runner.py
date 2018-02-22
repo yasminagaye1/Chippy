@@ -31,7 +31,7 @@ class Runner(QLearner.QLearner):
                                    alpha=alpha, gamma=gamma, epsilon=epsilon)
         self.adj_epsilon = None
         self.initial_epsilon = epsilon
-
+        self.__grid=grid
         #5
       
     def move(self, direction=None):
@@ -62,6 +62,9 @@ class Runner(QLearner.QLearner):
         elif suggestion == SUGGEST_RESET:
             print "Runner.move: implementing reset"
             self.reset()
+        elif suggestion==SUGGEST_KASAI:
+            print "Runner.move implementing kasai"
+            pass
         
         #
         #self.updateGraph(result[RESULT_ACT_REWARD])
