@@ -150,8 +150,21 @@ NOTES
 ******
 *I have found a way to send rewards and qvalues (archQdic) from 
     experiment.py to runners.py, which contains the monitor()
+
 *Montor() will check if the actual rewards is less than the expected
     reward. 
+
 *Our class model will then check the archQdic to see if we have 
     seen the pattern before. If so then figure out how to make 
     chippy use the qvalues from archQdic
+
+NOTES
+******
+*Runners now correctly collects the best and latest
+    rewards and experiments
+
+*How to let qlearner use previously saved table
+    to navigate grid
+
+*Thinking of following this pattern runners-> runner.reset-> 
+    walker.reset -> grid.reset -> square.reset
