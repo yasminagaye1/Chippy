@@ -170,7 +170,9 @@ class MCL2(Runner.Runner):
             self.__archQdic[keyy]=vall
             self.__prevVal=vall
         #print("printing arch pattern from runners.py-", len(self.__archQdic), self.__archQdic)
-    
+    def giveSavedQdic(self):
+        return self.__archQdic
+        
     def monitor(self,results):
         #curframe = inspect.currentframe()
         #print ('caller name:', inspect.getouterframes(curframe, 2)[1][4])
@@ -188,19 +190,11 @@ class MCL2(Runner.Runner):
 
             #if results[RESULT_ACT_REWARD]<results[RESULT_EXP_REWARD]\
              #   and reward loc and act reward is in table
-
-            # 3. If was positive and now negative, reset
-            if results[RESULT_EXP_REWARD] > 0 and \
-                results[RESULT_ACT_REWARD] < 0:
-                #let's check if this environment has been seen before
-                suggestion = SUGGEST_RESET
-                #suggestion = SUGGEST_KASAI
-
-
+ 
             # 4. If reward is less that before, learn
             if results[RESULT_EXP_REWARD] > results[RESULT_ACT_REWARD]:
-                
-                #print("runners.py: ---", self.grid().viewQvalues())
+                if str(self.grid().rewards()) in self.__archQdic:
+                    return SUGGEST_KASAI
                 
                 self.grid().set_expected(results[RESULT_REWARD_LOC],
                                          results[RESULT_ACT_REWARD])
@@ -211,6 +205,14 @@ class MCL2(Runner.Runner):
                 if self.suggested_learning > LEARNING_LIMIT:
                     suggestion = SUGGEST_RESET
                     self.suggested_learning = 0
+            
+            # 3. If was positive and now negative, reset
+            if results[RESULT_EXP_REWARD] > 0 and \
+                results[RESULT_ACT_REWARD] < 0:
+                #let's check if this environment has been seen before
+                suggestion = SUGGEST_RESET
+                #suggestion = SUGGEST_KASAI
+
         # 6. Return the suggestion
         if suggestion != 0:
             print results, '-->', suggestion

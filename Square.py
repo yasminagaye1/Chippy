@@ -74,6 +74,10 @@ class Square(object):
         self.__expected = None
         self.__visits   = 0
 
+    def kasai(self, savedQtable):
+        self.__q=savedQtable
+        #print("square.py- we here")
+
     def suggest(self):
         "Suggest the highest ranked move"
 

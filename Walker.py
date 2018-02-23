@@ -95,6 +95,10 @@ class Walker(object):
         if self.__grid:
             self.__grid.reset()
 
+    def kasai(self, savedQtable):
+        if self.__grid:
+            self.__grid.kasai(savedQtable)
+
     def suggest(self):
         return self.__grid.suggest(self.__loc)
 

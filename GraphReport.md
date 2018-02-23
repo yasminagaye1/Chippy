@@ -162,9 +162,13 @@ NOTES
 ******
 *Runners now correctly collects the best and latest
     rewards and experiments
-
+    
 *How to let qlearner use previously saved table
     to navigate grid
 
 *Thinking of following this pattern runners-> runner.reset-> 
     walker.reset -> grid.reset -> square.reset
+
+*Fixed logical bug between 2nd and 3rd bug 
+    in my monitor() in runners.py
+*Something close now init

@@ -161,6 +161,12 @@ class Grid(object):
         for s in self.__squares.itervalues():
             s.reset()
 
+    def kasai(self, savedQtable):
+        i=0
+        for s in self.__squares.itervalues():
+            s.kasai(savedQtable[i])
+            i+=1
+
     def suggest(self, loc):
         return self.__squares[loc].suggest()
 

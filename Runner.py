@@ -64,6 +64,7 @@ class Runner(QLearner.QLearner):
             self.reset()
         elif suggestion==SUGGEST_KASAI:
             print "Runner.move implementing kasai"
+            self.kasai(self.giveSavedQdic()[str(self.grid().rewards())])
             pass
         
         #
@@ -81,6 +82,9 @@ class Runner(QLearner.QLearner):
         QLearner.QLearner.reset(self)
         self.set_epsilon(self.initial_epsilon)
         self.adj_epsilon = None
+    
+    def kasai(self, savedQtable):
+        QLearner.QLearner.kasai(self, savedQtable)
 
     def set_expected(self, result):
         self.grid().set_expected(result[RESULT_REWARD_LOC], result[RESULT_ACT_REWARD])
