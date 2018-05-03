@@ -35,6 +35,7 @@ class Square(object):
         self.__letter    = letter
         self.__underline = underline
         self.__value     = None
+        
 
     def __str__(self):
         return "[%d,%d] r=%d" % (self.__x, self.__y, self.__reward)

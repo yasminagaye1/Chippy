@@ -13,14 +13,11 @@
 
 import sys
 import unittest
-
+import showmove
 from Constants import *
 import Grid
 import QLearner
 import Experiment
-#
-import time
-import matplotlib.pyplot as plt
 
 # ==============================================================
 #                                                      constants
@@ -56,18 +53,6 @@ class Experiments(object):
         # 2. Start with no results
         results = []
 
-        '''#
-        resultsForGraph=[]
-        stepsForGraph=[]
-        totalSteps=0
-        rewardsForGraph=0
-        plt.show()
-        axes = plt.gca()
-        axes.set_xlim(0, 10000000)
-        axes.set_ylim(0, 100000000)
-        line, = axes.plot(stepsForGraph, resultsForGraph, 'r-')'''
-
-
         # 3. Loop for all possible experiments
         if experiments == None:
             exps = range(len(EXPERIMENTS))
@@ -87,7 +72,7 @@ class Experiments(object):
                                                switch=self.switch,
                                                stop=self.stop)
             if verbose:
-                print "%s %2d" % (self.walker, exp),
+                #print "%s %2d" % (self.walker, exp),
                 sys.stdout.flush()
 
 
@@ -113,24 +98,9 @@ class Experiments(object):
 
             # 8. Save the results
             if verbose:
-                print rewards
+                print (rewards)
             results.append(rewards)
 
-            #
-            '''#update graph flow here
-            rewardsForGraph+=rewards
-            if totalSteps%20000==0:
-                stepsForGraph.append(totalSteps)
-                resultsForGraph.append(rewardsForGraph)
-                line.set_xdata(stepsForGraph)
-                line.set_ydata(resultsForGraph)
-                plt.draw()
-                plt.pause(1e-17)
-                time.sleep(0.1)
-                rewardsForGraph=0         
-            totalSteps+=1'''
-
-        showRewardsOnGraph(results)
         # 9. Return the total reward
         return results
 
@@ -170,21 +140,6 @@ class TestExperiment(unittest.TestCase):
         e = Experiment(g,l)
         r = e.run()
         self.assertEqual(len(r), STOP_TURN)
-
-
-def showRewardsOnGraph(results):
-        xpoints=[]
-        ypoints=[]
-        sumrew=0
-        for i in xrange(len(results)):
-            sumrew+=int(results[i])
-            if i%20000==0:
-                xpoints.append(i)
-                #ypoints.append(((float(results[i][7])**2)+(float(results[i][8])**2))**0.5)
-                #ypoints.append((int(results[i].split(",")[7])**2)+(int(results[i].split(",")[8])**2)**0.5)
-                ypoints.append(sumrew)
-        plt.plot(xpoints, ypoints,)
-        plt.show()
 
 # ==============================================================
 #                                                           main

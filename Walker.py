@@ -16,8 +16,6 @@ import random
 from Constants import *
 import Grid
 
-import time
-import matplotlib.pyplot as plt
 # ==============================================================
 #                                                         Walker
 # ==============================================================

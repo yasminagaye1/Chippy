@@ -1,28 +1,28 @@
-def showmove(direction):
-        a = 0
-        if ( direction == 0):
-            directions = open("%s.txt" % str.a, "r+")
-            ++a
-            directions.write( "0" )
-            directions.close()
-            pygame.time.wait(delay+1000)
-        elif ( direction == 1 ):
-            directions = open("%s.txt" % str.a, "r+")
-            ++a
-            directions.write("1")
-            directions.close()
-            pygame.time.wait(delay)
-        elif ( direction == 2):
-            directions = open("%s.txt" % str.a, "r+")
-            ++a
-            directions.write("2")
-            directions.close()
-            pygame.time.wait(delay)
-        elif ( direction == 3):
-            directions = open("%s.txt" % str.a, "r+")
-            ++a
-            directions.write("3")
-            directions.close()
-            pygame.time.wait(delay)
-        
-        print (direction)
+import os
+import QueueTest
+a = 0
+q = QueueTest.Queue()
+
+def showmove(location, reward):
+        global a
+        global q
+        q.enqueue(location)
+        q.enqueue(reward)
+        directions = open ("C:/Users/YACINE GAYE/Documents/BOWIE/CLASSES/LAB WORK/chippy_Yacine/direct/commands.txt","a")
+        #directions = open ("/Users/chrisbanks/Desktop/WORKFILES/chippy/direct/commands.txt","a")
+        directions.write ("%s %s \n" % (str(location) , str(reward) ) )
+        directions.close()
+        print ( q.size() )
+def showThoughts(inference):
+        directions = open ("C:/Users/YACINE GAYE/Documents/BOWIE/CLASSES/LAB WORK/chippy_Yacine/direct/commands.txt","a")
+        #directions = open("/Users/chrisbanks/Desktop/WORKFILES/chippy/direct/commands.txt", "a")
+        directions.write("%s\n" % inference)
+        directions.close()
+        print (inference)
+
+def clear():
+        global q
+        q = QueueTest.Queue()
+        directions = open ("C:/Users/YACINE GAYE/Documents/BOWIE/CLASSES/LAB WORK/chippy_Yacine/direct/commands.txt","w")
+        directions.close()
+        print ( "queue has been cleared")

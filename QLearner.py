@@ -12,10 +12,12 @@
 # ==============================================================
 import random
 import unittest
-
+import showreward
+import showmove
 import Grid
 import Walker
 from Constants import *
+import GUIchippy
 
 # ==============================================================
 #                                                       QLearner
@@ -30,6 +32,8 @@ class QLearner(Walker.Walker):
         self.__alpha   = alpha
         self.__gamma   = gamma
         self.__epsilon = epsilon
+        self.__infer="ihih"
+        self.__gui=GUIchippy.GUIchippy()
 
     def __str__(self):
         return "QLearner (a=%f,g=%f,e=%f,c=%d,s=%f %s)" % \
@@ -55,6 +59,7 @@ class QLearner(Walker.Walker):
         if direction != None:
             move_type = MOVE_TYPE_FORCED
         else:
+
             # 3. Determine on or off policy move
             if self.__epsilon > random.random():
                 direction = random.choice(DIRECTIONS)
@@ -65,7 +70,7 @@ class QLearner(Walker.Walker):
 
         # 4. Move in specified direction
         result = list(Walker.Walker.move(self, direction))
-
+        
         # 5. Adjust the action expected rewards
         self.qreward(direction, previous,
                      result[RESULT_ACT_REWARD],
@@ -74,10 +79,38 @@ class QLearner(Walker.Walker):
         # 6. Append move type and policy to result
         result.append(move_type)
         result.extend(policy)
-
+        #******************************************************************************
+        
+        #TO COLLECT INFORMATION NEEDED FOR GUIchippy
+        prev_xy = result[0]
+        final_xy = result[2]
+        print("this x, y", prev_xy, final_xy)
+        direct_x = final_xy[0] - prev_xy[0]
+        direct_y = final_xy[1] - prev_xy[1]
+        direct = direct_x, direct_y 
+        reward = result[3]
+        policy = result[6]
+        infer = "GUESS"
+        if(policy == 'R'):
+            infer = "GUESS"
+        elif (policy == 'P' and direct == (0, 1)):
+            infer = "RIGHT"
+        elif (policy == 'P' and direct == (0, -1)):
+            infer = "LEFT"
+        elif (policy == 'P' and direct == (1, 0)):
+            infer = "UP"
+        elif (policy == 'P' and direct == (-1, 0)):
+            infer = "DOWN"
+        #VISUAL CHIPPY`S MOVE 
+        self.__gui.gUIchippy([showreward.showLocation(*final_xy), showreward.showReward(reward),  infer])
+        
         # 7. Return movement results
+        
         return result
-
+    
+    #def getInfer(self):
+    #   return self.__infer
+    
     def qreward(self, a, s, r, sp):
         "Spread out the reward over the past moves"
         oldQsa = self.grid()[s][a]

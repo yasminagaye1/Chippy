@@ -116,10 +116,10 @@ class Level3HC(Runner.Runner):
         # 2. If unexpected reward, evaluate
         if results[RESULT_EXP_REWARD] != None and \
            results[RESULT_EXP_REWARD] != results[RESULT_ACT_REWARD]:
-            print 'Runners.Level3HC.monitor: unexpected reward %s at %s expected %s' % (
+            print ('Runners.Level3HC.monitor: unexpected reward %s at %s expected %s' % (
                 results[RESULT_ACT_REWARD],
                 results[RESULT_REWARD_LOC],
-                results[RESULT_EXP_REWARD])
+                results[RESULT_EXP_REWARD]))
 
             # 3. If was positive and now negative, reset
             if results[RESULT_EXP_REWARD] > 0 and \
@@ -137,11 +137,10 @@ class Level3HC(Runner.Runner):
                 if self.suggested_learning > LEARNING_LIMIT:
                     suggestion = SUGGEST_RESET
                     self.suggested_learning = 0
-        
-        
+
         # 6. Return the suggestion
         if suggestion != 0:
-            print results, '-->', suggestion
+            print ( results, '-->', suggestion )
         return suggestion
 
 # ==============================================================

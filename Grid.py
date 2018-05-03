@@ -11,28 +11,29 @@
 #                                                        imports
 # ==============================================================
 import unittest
-
+import showreward
+import showmove
 import Square
+from time import sleep
 from Constants import *
-
+import GUIchippy
+import Walker
+import QLearner
 # ==============================================================
 #                                                           Grid
 # ==============================================================
-
-#
-import time
-import matplotlib.pyplot as plt
-
-
-
-
-
-class Grid(object):
+class Grid():
     "Multiple squares arranged in an n by n matrix with two rewards"
 
     def __init__(self, n=8, r1=10, r2=-10, r=None):
         "Initialize a n-armed bandit"
-
+        #call to dipaly function
+        self.__gui=GUIchippy.GUIchippy()
+        #QLearner.QLearner().__init__(self)
+        self.__qlear=QLearner.QLearner()
+        #self.gui.display()
+        #self.gui.UpDisplay()
+        
         # 1. Set local values
         self.__n_1     = n-1
         self.__squares = {}
@@ -47,27 +48,13 @@ class Grid(object):
             for y in range(n):
                 s = Square.Square(x=x, y=y)
                 self.__squares[(x,y)] = s
-
+        
         # 3. Set the rewards
         self.set_rewards(self.__r1,self.__r2)
 
         # 4. Set the transporters
         self.__squares[(0,0)].set_jump((self.__n_1,self.__n_1))
         self.__squares[(self.__n_1,self.__n_1)].set_jump((0,0))
-
-
-        #5
-        plt.title("Reward chart from Grid.move")
-        plt.xlabel("Steps")
-        plt.ylabel("Rewards")
-        self.__resultsForGraph=[]
-        self.__stepsForGraph=[]
-        self.__totalSteps=0
-        self.__rewardsForGraph=0
-        self.__axes = plt.gca()
-        self.__axes.set_xlim(0, 10000000)
-        self.__axes.set_ylim(0, 100000000)
-        self.__line, = self.__axes.plot(self.__stepsForGraph, self.__resultsForGraph, 'r-')
 
     def __str__(self):
         return "Grid (n=%d,r1=%d,r2=%d)" % \
@@ -103,7 +90,7 @@ class Grid(object):
 
     def move(self, at, direction):
         "From square 'at' move in direction 'direction'"
-
+        #self.__gui.display()
         # 1. Determine new square
         new_x = at[0] + DIR_DELTA_X[direction]
         if new_x < 0:          new_x = 0
@@ -120,39 +107,44 @@ class Grid(object):
         # 3. Get reward for moving to the new square
         reward   = self.__squares[new_xy].reward()
         expected = self.__squares[new_xy].expected()
-
-
+        
+        #NEW CALL
+        
+        #PRINTING
+        print ("we are her", direction)
         # 4. Implement jumps at reward squares
         jump = self.__squares[new_xy].jump()
+        #move(direction)
+        #result = self.__qlear.getInfer()
         if jump:
+            print ("This is Rewardxx", reward)
             final_xy = jump
+            showmove.showmove(showreward.showLocation(*final_xy), showreward.showReward(reward))
+            #print("sflkndslfkj", [showreward.showLocation(*final_xy), showreward.showReward(reward)])
+            
+            #self.__gui.gUIchippy([showreward.showLocation(*final_xy), showreward.showReward(reward),  result])
+            '''showreward.showThoughts( result[RESULT_POLICY_N],
+                                                      result[RESULT_POLICY_S],
+                                                      result[RESULT_POLICY_W],
+                                                      result[RESULT_POLICY_E])])'''
+           
         else:
+            
+            print ("This is Reward", reward)
             final_xy = new_xy
-
-        #6
-        self.updateGraph(reward)
-
+            showmove.showmove(showreward.showLocation(*final_xy), showreward.showReward(reward))
+            #self.__gui.gUIchippy([showreward.showLocation(*final_xy), showreward.showReward(reward),  result])
+            #, showreward.showThoughts(DIR_N, DIR_S, DIR_W, DIR_E)
+            #print("sflkndslfkj", [showreward.showLocation(*final_xy), showreward.showReward(reward)])
         # 5. Return reward and new location
         return at,direction,new_xy,expected,reward,final_xy
 
-    def updateGraph(self, reward):
-        self.__rewardsForGraph+=reward
-        if self.__totalSteps%20000==0:
-            self.__stepsForGraph.append(self.__totalSteps)
-            self.__resultsForGraph.append(self.__rewardsForGraph)
-            self.__line.set_xdata(self.__stepsForGraph)
-            self.__line.set_ydata(self.__resultsForGraph)
-            plt.pause(1e-17)
-            time.sleep(0.1)         
-        self.__totalSteps+=1
-    
     def reset(self):
         for s in self.__squares.itervalues():
             s.reset()
 
     def suggest(self, loc):
         return self.__squares[loc].suggest()
-
     def switch(self):
         "Switch the values of the two rewards"
         old_r1 = self.__r1

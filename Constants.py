@@ -115,13 +115,9 @@ R2 = 1
 RR = 2
 
 SWITCH_TURN = 10000
-#SWITCH_TURN = 10
-
 STOP_TURN   = 20000
-#STOP_TURN   = 20
 
 REPEATS     = 20
-#REPEATS     = 2
 
 # ==============================================================
 #                                                rolling average
