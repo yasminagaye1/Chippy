@@ -123,7 +123,7 @@ class GUIchippy(object):
 
             
        #gUIchippy function
-    def gUIchippy(self, original_location):
+    def gUIchippy(self, original_location, count):
         #communicate with grid
         self.__fpsClock.tick(self.__FPS)
        
@@ -140,11 +140,17 @@ class GUIchippy(object):
         
         #Locations of the 2 rewards
         rewardX = 0 * (self.__margin + self.__box_width)
-        RewardY = 0 * (self.__margin + self.__box_height)
-        RewardX2 = 7 * (self.__margin + self.__box_width)
-        RewardX2= 7 * (self.__margin + self.__box_height)
-        self.rewardI(rewardX, RewardY)
-        self.rewardI2(RewardX2, RewardX2)
+        rewardY = 0 * (self.__margin + self.__box_height)
+        rewardX2 = 7 * (self.__margin + self.__box_width)
+        rewardY2= 7 * (self.__margin + self.__box_height)
+        
+        #SWITCH THE THE POSITIVE AND NEGATIVE REWARD IMAGE EVERY 10,000 STEPS
+        if count < 10000:
+            self.rewardI(rewardX, rewardY)
+            self.rewardI2(rewardX2, rewardY2)
+        else:
+            self.rewardI(rewardX2, rewardY2)
+            self.rewardI2(rewardX, rewardY)
         
         self.infer(433,435, original_location[2][0])
         self.grass(oldX,oldY)

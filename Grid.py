@@ -114,25 +114,21 @@ class Grid():
         print ("we are her", direction)
         # 4. Implement jumps at reward squares
         jump = self.__squares[new_xy].jump()
-        #move(direction)
-        #result = self.__qlear.getInfer()
+        
         if jump:
             print ("This is Rewardxx", reward)
             final_xy = jump
-            showmove.showmove(showreward.showLocation(*final_xy), showreward.showReward(reward))
+            #showmove.showmove(showreward.showLocation(*final_xy), showreward.showReward(reward))
             #print("sflkndslfkj", [showreward.showLocation(*final_xy), showreward.showReward(reward)])
             
             #self.__gui.gUIchippy([showreward.showLocation(*final_xy), showreward.showReward(reward),  result])
-            '''showreward.showThoughts( result[RESULT_POLICY_N],
-                                                      result[RESULT_POLICY_S],
-                                                      result[RESULT_POLICY_W],
-                                                      result[RESULT_POLICY_E])])'''
+            
            
         else:
             
             print ("This is Reward", reward)
             final_xy = new_xy
-            showmove.showmove(showreward.showLocation(*final_xy), showreward.showReward(reward))
+            #showmove.showmove(showreward.showLocation(*final_xy), showreward.showReward(reward))
             #self.__gui.gUIchippy([showreward.showLocation(*final_xy), showreward.showReward(reward),  result])
             #, showreward.showThoughts(DIR_N, DIR_S, DIR_W, DIR_E)
             #print("sflkndslfkj", [showreward.showLocation(*final_xy), showreward.showReward(reward)])

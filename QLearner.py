@@ -34,6 +34,7 @@ class QLearner(Walker.Walker):
         self.__epsilon = epsilon
         self.__infer="ihih"
         self.__gui=GUIchippy.GUIchippy()
+        self.__count = 0
 
     def __str__(self):
         return "QLearner (a=%f,g=%f,e=%f,c=%d,s=%f %s)" % \
@@ -102,8 +103,12 @@ class QLearner(Walker.Walker):
         elif (policy == 'P' and direct == (-1, 0)):
             infer = "DOWN"
         #VISUAL CHIPPY`S MOVE 
-        self.__gui.gUIchippy([showreward.showLocation(*final_xy), showreward.showReward(reward),  infer])
         
+        print ("THE COUNT IS ", self.__count)
+        self.__gui.gUIchippy([showreward.showLocation(*final_xy), showreward.showReward(reward),  infer], self.__count)
+        self.__count += 1
+        if self.__count == 20000:
+            self.__count = 0
         # 7. Return movement results
         
         return result

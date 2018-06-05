@@ -8,14 +8,12 @@ def showmove(location, reward):
         global q
         q.enqueue(location)
         q.enqueue(reward)
-        directions = open ("C:/Users/YACINE GAYE/Documents/BOWIE/CLASSES/LAB WORK/chippy_Yacine/direct/commands.txt","a")
-        #directions = open ("/Users/chrisbanks/Desktop/WORKFILES/chippy/direct/commands.txt","a")
+        directions = open ("C:/Users/YACINE GAYE/Documents/BOWIE/CLASSES/LAB WORK/Chippy_A_Yacine/direct/commands.txt","a")
         directions.write ("%s %s \n" % (str(location) , str(reward) ) )
         directions.close()
         print ( q.size() )
 def showThoughts(inference):
-        directions = open ("C:/Users/YACINE GAYE/Documents/BOWIE/CLASSES/LAB WORK/chippy_Yacine/direct/commands.txt","a")
-        #directions = open("/Users/chrisbanks/Desktop/WORKFILES/chippy/direct/commands.txt", "a")
+        directions = open ("C:/Users/YACINE GAYE/Documents/BOWIE/CLASSES/LAB WORK/Chippy_A_Yacine/direct/commands.txt","a")
         directions.write("%s\n" % inference)
         directions.close()
         print (inference)
@@ -23,6 +21,6 @@ def showThoughts(inference):
 def clear():
         global q
         q = QueueTest.Queue()
-        directions = open ("C:/Users/YACINE GAYE/Documents/BOWIE/CLASSES/LAB WORK/chippy_Yacine/direct/commands.txt","w")
+        directions = open ("C:/Users/YACINE GAYE/Documents/BOWIE/CLASSES/LAB WORK/Chippy_A_Yacine/direct/commands.txt","w")
         directions.close()
         print ( "queue has been cleared")
